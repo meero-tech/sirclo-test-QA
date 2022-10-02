@@ -17,7 +17,7 @@ describe('UI Testing : Login', () => {
           login.btnLogin().should('be.visible');
       }) 
 
-      it.only('Get to login page then input wrong pass', () => {
+      it('Get to login page then input wrong pass', () => {
         login.txtUsername().type("rooxxt")
         login.txtPassword().type("rootxxx")
         login.btnLogin().click()
