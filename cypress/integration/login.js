@@ -17,48 +17,17 @@ describe('UI Testing : Login', () => {
           login.btnLogin().should('be.visible');
       }) 
 
-      it('Get to login page then input wrong pass', () => {
-        login.txtUsername().type("rooxxt")
-        login.txtPassword().type("rootxxx")
-        login.btnLogin().click()
-        cy.request({
-            url: login,
-            followRedirect: false,
-            failOnStatusCode: false,
-        }).then((resp) => {
-            expect(resp.status).to.eq(200);
-            expect(resp.redirectedToUrl).to.eq(undefined);
-        });
-        });
-/*
-      it('02 Login with incorrect username',()=> {
+      it('02 Login with incorrect username & password',()=> {
         let userName = "rootIncorrect";
-        let password = "root123";
-        login.txtUsername().type(userName);
-        login.txtPassword().type(password);
-        login.btnLogin().click();
-        expect(resp.status).is(eq,'404');
-
-
-      })*/
-
-      it('03 Login with incorrect password',()=> {
-        let userName = "root";
         let password = "root123Incorrect";
         login.txtUsername().type(userName);
         login.txtPassword().type(password);
-        cy.request({
-            method : 'POST',
-            url: url,
-            followRedirect: false,
-            failOnStatusCode: false,
-        }).then((resp) => {
-            expect(resp.status).to.eq(404);
-        });
+        login.btnLogin().click();
+        cy.contains("The password or username is wrong").should('exist');
 
 
       })
-
+      
       it('03 Login with correct username and password',()=> {
         let userName = "root";
         let password = "root123";
