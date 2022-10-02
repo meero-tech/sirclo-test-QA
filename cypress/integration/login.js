@@ -67,7 +67,7 @@ describe('UI Testing : Login', () => {
         login.btnLogin().click();
         homepage.lblTitle().should('be.visible');
         cy.url().should('eq', 'https://qa-interview.srcli.xyz/')
-        cy.session().should('exist');
+
 
 
       })
