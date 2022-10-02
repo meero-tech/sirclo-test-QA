@@ -1,4 +1,4 @@
-import Homepage from '../../newpages/web/Homepage.js'
+import Homepage from '../newpages/web/Homepage.js'
 //inisiation insert data in to variable
 describe('Test Homepage', () => {
     beforeEach(() => {
