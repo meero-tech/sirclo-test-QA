@@ -1,10 +1,9 @@
-import Login from '../../newpages/web/Login.js'
-import Homepage from '../../newpages/web/Homepage.js'
+import Login from '../newpages/web/Login.js'
+import Homepage from '../newpages/web/Homepage.js'
 //inisiation insert data in to variable
 describe('UI Testing : Login', () => {
     let url = 'http://qa-interview.srcli.xyz/login';
     beforeEach(() => {
-        
         cy.visit(url)
       })
    
@@ -17,6 +16,20 @@ describe('UI Testing : Login', () => {
           login.txtPassword().should('be.visible');
           login.btnLogin().should('be.visible');
       }) 
+
+      it.only('Get to login page then input wrong pass', () => {
+        login.txtUsername().type("rooxxt")
+        login.txtPassword().type("rootxxx")
+        login.btnLogin().click()
+        cy.request({
+            url: login,
+            followRedirect: false,
+            failOnStatusCode: false,
+        }).then((resp) => {
+            expect(resp.status).to.eq(200);
+            expect(resp.redirectedToUrl).to.eq(undefined);
+        });
+        });
 /*
       it('02 Login with incorrect username',()=> {
         let userName = "rootIncorrect";

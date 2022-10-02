@@ -20,7 +20,7 @@ class Data{
         return cy.xpath("//input[@name='start']");
     }
     txtEnd(){
-        return cy.contains("End")
+        return cy.xpath("//input[@name='end']");
     }
     btnFilter(){
         return cy.xpath("//input[@value='Filter']")
