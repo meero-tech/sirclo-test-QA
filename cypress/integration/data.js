@@ -3,8 +3,8 @@ import Homepage from '../newpages/web/Homepage.js'
 import Data from '../newpages/web/Data'
 //inisiation insert data in to variable
 describe('UI Testing : Data Table', () => {
-    let urlLogin = 'http://qa-interview.srcli.xyz/login';
-    let urlData = 'http://qa-interview.srcli.xyz/data';
+    let urlLogin = 'https://qa-interview.srcli.xyz/login';
+    let urlData = 'https://qa-interview.srcli.xyz/data';
     var login = new Login()
     var data = new Data()
     var homepage = new Homepage()
@@ -62,12 +62,27 @@ describe('UI Testing : Data Table', () => {
           }
 
       })
-      it.only('04 Filter Data Table - Start > End',()=> {
+      it('04 Filter Data Table - Start > End',()=> {
         data.txtStart().type("2018-07-06");
         data.txtEnd().type("2018-07-03");
         data.btnFilter().click();
         cy.url().should('eq', 'https://qa-interview.srcli.xyz/filter')
         
       })
-    })
-    
+
+      it("05 302 get data before login", () => {
+        cy.clearCookies();
+        const data = "https://qa-interview.srcli.xyz/data";
+        cy.visit(data)
+        cy.request({
+          url: data,
+          followRedirect: false,
+        }).then((resp) => {
+        expect(resp.status).to.eq(302)
+        expect(resp.redirectedToUrl).to.eq(urlLogin)
+        cy.contains("Username").should("exist")
+        cy.contains("Password").should("exist")
+        cy.contains("Login").should("exist")
+        });
+    });
+  })
